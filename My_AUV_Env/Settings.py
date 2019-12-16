@@ -5,6 +5,7 @@
 
 import os
 import sys
+import pygame as pg
 
 # Define RGB
 WHITE = (255,255,255)
@@ -61,6 +62,7 @@ POSITIVE_Y = (0,1)
 常用工具
 """
 import numpy as np
+import math
 
 def angle_between(v1,v2):
     """返回弧度制"""
@@ -68,11 +70,21 @@ def angle_between(v1,v2):
     v2_u = v2/np.linalg.norm(v2)
     return np.arccos(np.clip(np.dot(v1_u,v2_u),-1.0,1.0))
 
+def angle(x,y):
+    """已知AUV距target之间相对距离，求中间夹角"""
+    angle = math.atan2(y,x)
+    angle = rad2angle(angle)
+    return angle
+
 def rad2angle(rad):
     """弧度转角度"""
     return (rad/(2*np.pi))*360
 
-# if __name__ == "__main__":
-#     a = angle_between(np.array([1,0]),np.array([-1,0]))
-#     b = rad2angle(a)
-#     print(b)
+if __name__ == "__main__":
+    a = angle_between(np.array([0,1]),np.array([-1,1]))
+    b = rad2angle(a)
+    c = angle(4,4)
+    print(c)
+    print(b)
+
+    print([0.0]*5)

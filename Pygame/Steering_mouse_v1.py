@@ -43,7 +43,7 @@ class AUV(pg.sprite.Sprite):
         self.image.fill(YELLOW) # 填充颜色
 
         #----------------------------------
-        # 向量参数
+        # 向量参
         # 初始位置随机
         self.pos = vec(randint(0,WIDTH),randint(0,HEIGHT))
         # 初始只有x方向速度，且伴有0~360的随机抖动

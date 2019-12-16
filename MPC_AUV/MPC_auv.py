@@ -33,7 +33,7 @@ Qf = Q # state final matrix
 
 # GLOBAL
 # iterative paramter
-MAX_ITER = 10  # Max iteration
+MAX_ITER = 3  # Max iteration
 DU_TH = 0.1  # iteration finish param
 
 TARGET_SPEED = 10.0 / 3.6 - 0.5   # [m/s] target speed
@@ -64,7 +64,7 @@ MIN_DSTEER_SPE = -0.25
 MAX_SPEED_U = 3 # maximum speed [m/s]
 MIN_SPEED_U = -3# minimum speed [m/s]
 MAX_SPEED_V = 2
-MIN_SPEED_V = -3
+MIN_SPEED_V = -2
 
 show_animation = True
 
@@ -157,7 +157,7 @@ def linear_mpc_control(xref,xbar,x0,dref):
         # 输入psi,u,v
         # A,B = get_linear_model_matrix(xbar[0,k],xbar[1,k],xbar[2,k]) (x)
         A,B = get_linear_model_matrix(xbar[2,k],xbar[0,k],dref[1,k]) # (√)
-        constraints += [X[:,k+1]-xbar[:,k+1] == A*(X[:,k]-xbar[:,k])+B*(V[:,k]-dref[:,k])]
+        constraints += [X[:,k+1]-xref[:,k+1] == A*(X[:,k]-xref[:,k])+B*(V[:,k]-dref[:,k])]
 
         if k < (K-1):
             # △v

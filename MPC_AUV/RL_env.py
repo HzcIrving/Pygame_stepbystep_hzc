@@ -80,11 +80,16 @@ class AUV_TRACKING(object):
         self.np_random,seed = seeding.np_random(seed)
         return [seed]
 
-    def step(self,action):
+    def step(self,action,x_d,y_d,yaw_d):
         """
         :param action:[u_t,v_t,r_t]
         :return:
         """
+
+        desired_x = x_d
+        desired_y = y_d
+        desired_yaw = yaw_d
+
         # 状态量
         postion_X = self.state[0]
         postion_Y = self.state[1]

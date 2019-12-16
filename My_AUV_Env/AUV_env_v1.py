@@ -10,6 +10,7 @@ import sys
 import os
 import random
 from Settings import *
+import math
 
 np.random.seed(1) # 随机因子
 SCREEN  = pg.display.set_mode((WIDTH,HEIGHT))
@@ -35,6 +36,8 @@ class AUV(pg.sprite.Sprite):
         self.angle_a = 0
         # 初始转角
         self.rot = 0
+        # 初始朝向
+
 
     def get_keys(self):
         """扫描按键"""
@@ -97,12 +100,23 @@ class AUV(pg.sprite.Sprite):
             steer = (self.desired - self.vel)
             if steer.length() > MAX_STEER:
                 steer.scale_to_length(MAX_STEER)
+
+            # # if self.pos != vec(0,0):
+            # self.rot = rad2angle(angle_between(self.vel,self.desired))
+            # # else:
+            # #     self.rot = rad2angle(angle_between(POSITIVE_Y,self.vel))
+            # self.image = pg.transform.rotate(self.original_image,self.rot)
+            # self.rect = self.image.get_rect()
+
             # update ...
             self.acc = steer
             self.vel += self.acc*dt
-            self.rot = rad2angle(angle_between(POSITIVE_Y,self.vel))
+
+            self.rel_x,self.rel_y = self.desired
+            self.rot = 90-angle(self.rel_x,self.rel_y)
             self.image = pg.transform.rotate(self.original_image,self.rot)
             self.rect = self.image.get_rect()
+
             if self.vel.length() > AUV_MAX_SPEED:
                 self.vel.scale_to_length(AUV_MAX_SPEED)
             self.pos += self.vel*dt
@@ -177,6 +191,7 @@ def Render(mode):
     all_sprites = pg.sprite.Group()
     # ---auv---
     player = AUV(WIDTH/2,HEIGHT/2)
+    print(player.rect[0:2])
     all_sprites.add(player)
     # ---obstacle---
     obstacle = Obstacle()

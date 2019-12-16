@@ -28,7 +28,7 @@ STOP_SPEED = 0.5 / 3.6  # stop speed
 MAX_TIME = 500.0  # max simulation time
 
 
-DT = 0.2  # [s] time tick
+DT = 0.1  # [s] time tick
 
 # AUV parameters
 LENGTH = 4.5/2  # [m]
@@ -49,7 +49,7 @@ MIN_SPEED_U = STOP_SPEED# minimum speed [m/s]
 MAX_SPEED_V = 2
 MIN_SPEED_V = STOP_SPEED
 
-show_animation = True
+# show_animation = True
 
 def pi2pi(angle):
     """转角修正"""

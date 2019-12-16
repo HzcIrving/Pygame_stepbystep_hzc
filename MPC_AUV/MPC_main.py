@@ -18,8 +18,10 @@ show_animation = True
 
 dl = 1.0 # 刻度[m]
 
-cx,cy,cpsi,ck,goal = get_switch_back_course(dl)
+# cx,cy,cpsi,ck,goal = get_switch_back_course(dl)
 # cx,cy,cpsi,ck,goal = get_straight_course(dl)
+cx,cy,cpsi,ck,goal = get_straight_course2(dl)
+
 plt.plot(cx,cy)
 plt.show()
 # print(cx)
@@ -37,7 +39,7 @@ t,x,y,psi,u,v,r = do_simulation(cx,cy,cpsi,ck,dl,initial_state,sp)
 
 if show_animation:  # pragma: no cover
     plt.close("all")
-    plt.subplots()
+    plt.subplot(2,3,1)
     plt.plot(cx, cy, "-r", label="spline")
     plt.plot(x, y, "-g", label="tracking")
     plt.grid(True)
@@ -46,11 +48,24 @@ if show_animation:  # pragma: no cover
     plt.ylabel("y[m]")
     plt.legend()
 
-    plt.subplots()
-    plt.plot(t, v, "-r", label="speed")
+    plt.subplot(2,3,2)
+    # plt.plot(t, v, "-r", label="speed"
+    plt.plot(cpsi,label='psi_d')
+    plt.plot(psi[1:],label='psi')
     plt.grid(True)
-    plt.xlabel("Time [s]")
-    plt.ylabel("Speed [kmh]")
+    # plt.xlabel("Time [s]")
+    # plt.ylabel("Speed [kmh]")
+
+    plt.subplot(2,3,3)
+    plt.plot(sp[0],label='u_d')
+    plt.plot(u,label='u')
+    plt.grid(True)
+
+    plt.subplot(2,3,4)
+    plt.plot(sp[1],label='v_d')
+    plt.plot(v,label='v')
+    plt.grid(True)
+
 
     plt.show()
 
